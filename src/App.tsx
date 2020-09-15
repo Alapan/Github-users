@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './App.css'
-import PaginatedGrid from './PaginatedGrid';
-import ItemsPerPageSelector from './ItemsPerPageSelector';
-import UserTable from "./UserTable";
 import { connect } from 'react-redux';
+import './App.css';
+import ItemsPerPageSelector from './ItemsPerPageSelector';
+import PaginatedGrid from './PaginatedGrid';
+import UserTable from './UserTable';
 
 interface State {
   currentPage: number;
@@ -19,8 +19,8 @@ const mapStateToProps = (state: State) => {
   return {
     currentPage: state.currentPage,
     itemsPerPage: state.itemsPerPage,
-  }
-}
+  };
+};
 
 const App: React.FC<AppProps> = (props: AppProps) => {
   const [numberOfPages, setNumberOfPages] = useState(0);
@@ -49,8 +49,11 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     getUsersCount(itemsPerPage);
     fetch(`https://api.github.com/users?since=${since}&per_page=${itemsPerPage}`)
       .then((response) => response.json())
-      .then((data) => setUsers(data));
-  }
+      .then((data) => setUsers(data))
+      .catch((err) => {
+        throw new Error(err);
+      });
+  };
 
   useEffect(() => {
     getUsers(props.currentPage);
@@ -72,6 +75,6 @@ const App: React.FC<AppProps> = (props: AppProps) => {
       />
     </div>
   );
-}
+};
 
 export default connect(mapStateToProps)(App);

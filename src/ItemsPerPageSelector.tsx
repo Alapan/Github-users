@@ -3,15 +3,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useState } from 'react';
-import { updateCurrentPage, updateItemsPerPage } from './redux/actions';
+import React from 'react';
 import { connect } from 'react-redux';
-import {Dispatch} from 'redux';
+import { Dispatch } from 'redux';
+import { updateCurrentPage, updateItemsPerPage } from './redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    display: 'flex',
     alignContent: 'center',
+    display: 'flex',
     justifyContent: 'center',
     maxWidth: '120px'
   },
@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface ItemsPerPageSelectorProps {
-  itemsPerPage: number;
   getUsers: (since?: number | null, perPage?: number | null) => void;
+  itemsPerPage: number;
   total: number;
   updateCurrentPage: (currentPage: number) => void;
   updateItemsPerPage: (itemsPerPage: number) => void;
@@ -37,19 +37,19 @@ const mapStateToProps = (state: State) => {
   return {
     itemsPerPage: state.itemsPerPage
   };
-}
+};
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     updateCurrentPage: (currentPage: number) => dispatch(updateCurrentPage(currentPage)),
     updateItemsPerPage: (itemsPerPage: number) => dispatch(updateItemsPerPage(itemsPerPage))
-  }
-}
+  };
+};
 
 const ItemsPerPageSelector: React.FC<ItemsPerPageSelectorProps> = (
   props: ItemsPerPageSelectorProps
 ) => {
-  const handleChange = (event: any) => {
+  const handleChange = (event) => {
     props.updateCurrentPage(1);
     props.updateItemsPerPage(event.target.value);
     props.getUsers(null, event.target.value);

@@ -6,23 +6,23 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
-import {StyledTableCell, StyledTableRow} from "./TableStyles";
+import { StyledTableCell, StyledTableRow } from './TableStyles';
 import './User.css';
 
 interface User {
   avatar_url: string;
-  id: number;
   followers: number;
   following: number;
+  id: number;
   login: string;
   name: string;
 }
 
 const initialUserState = {
   avatar_url: '',
-  id: 0,
   followers: 0,
   following: 0,
+  id: 0,
   login: '',
   name: '',
 };
@@ -43,13 +43,16 @@ const User = () => {
 
     fetch(`https://api.github.com/users${pathname}`)
       .then((response) => response.json())
-      .then((data) => setUser(data));
+      .then((data) => setUser(data))
+      .catch((err) => {
+          throw new Error(err);
+        });
   }, []);
 
   return (
     <div className={classes.root}>
-      <div className='avatar-container'>
-        <img src={user.avatar_url} className='user-page-avatar'/>
+      <div className="avatar-container">
+        <img src={user.avatar_url} className="user-page-avatar"/>
       </div>
       <TableContainer component={Paper}>
         <Table>

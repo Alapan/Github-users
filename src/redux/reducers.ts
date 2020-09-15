@@ -21,16 +21,16 @@ const reducer = (state: State = initialState, action: Action) => {
       return {
         ...state,
         currentPage: action.value
-      }
+      };
 
     case UPDATE_ITEMS_PER_PAGE:
       return {
         ...state,
         itemsPerPage: action.value
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

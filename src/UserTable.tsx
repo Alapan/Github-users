@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import {StyledTableCell, StyledTableRow} from "./TableStyles";
-import TableBody from "@material-ui/core/TableBody";
-import {Link} from "react-router-dom";
-import TableContainer from "@material-ui/core/TableContainer";
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {StyledTableCell, StyledTableRow} from './TableStyles';
 
 interface User {
   avatar_url: string;
@@ -16,7 +16,7 @@ interface User {
 
 interface UserTableProps {
   getUsers: (since?: number | null, itemsPerPage?: number | null) => void;
-  users: User[]
+  users: User[];
 }
 
 const UserTable: React.FC<UserTableProps> = (props: UserTableProps) => {
@@ -52,6 +52,6 @@ const UserTable: React.FC<UserTableProps> = (props: UserTableProps) => {
       </Table>
     </TableContainer>
   );
-}
+};
 
 export default UserTable;

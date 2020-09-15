@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation
+
+1) `git clone git@github.com:Alapan/Github-users.git`
+2) cd into project directory, run `npm install`.
+3) `npm start`
+
 ## Description
 
 The project displays a paginated list of all Github users. Each user's avatar and username is shown. When the avatar/username is clicked, the viewer is taken to second view where further details of the user such as number of followers, number following etc. A back button is provided in this second view, which serves the same purpose as the browser back button.

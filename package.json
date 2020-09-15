@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json -p tsconfig.json 'src/*.ts*' 'src/redux/*.ts*'",
-    "prettier": "prettier --check 'src/*.ts*'",
+    "prettier": "prettier --check 'src/*.ts*' 'src/redux/*.ts*'",
     "prettier:fix": "prettier --write 'src/*.ts*' 'src/redux/*.ts*'"
   },
   "eslintConfig": {

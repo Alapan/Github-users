@@ -7,13 +7,13 @@ import store from './redux/store';
 import User from './User';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route exact={true} path="/" component={App} />
-        <Route path="/:username" component={User} />
-      </Switch>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <Router>
+            <Switch>
+                <Route exact={true} path="/" component={App} />
+                <Route path="/:username" component={User} />
+            </Switch>
+        </Router>
+    </Provider>,
+    document.getElementById('root')
 );

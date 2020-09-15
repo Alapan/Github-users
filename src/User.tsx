@@ -1,3 +1,4 @@
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -6,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { StyledTableCell, StyledTableRow } from './TableStyles';
 import './User.css';
 
@@ -86,6 +88,13 @@ const User = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Link to={'/'}>
+                <div className="back-button-cls">
+                    <Button variant="contained" color="primary">
+                        Back
+                    </Button>
+                </div>
+            </Link>
         </div>
     );
 };

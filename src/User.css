@@ -1,13 +1,19 @@
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+}
+
+.back-button-cls {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
 .user-page-avatar {
     vertical-align: middle;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     text-align: center;
-}
-
-.avatar-container {
-    display: flex;
-    justify-content: center;
-    margin: 40px auto;
 }

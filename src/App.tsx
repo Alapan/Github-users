@@ -5,6 +5,7 @@ import ItemsPerPageSelector from './ItemsPerPageSelector';
 import PaginatedGrid from './PaginatedGrid';
 import UserTable from './UserTable';
 
+// Application state, stored in Redux store
 interface State {
     currentPage: number;
     itemsPerPage: number;
@@ -23,9 +24,11 @@ const mapStateToProps = (state: State) => {
 };
 
 const App: React.FC<AppProps> = (props: AppProps) => {
+    // Component state
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [users, setUsers] = useState([]);
 
+    // Calculate total number of pages needed for PaginatedGrid component
     const getUsersCount = (perPage: number): void => {
         fetch(`https://api.github.com/search/users?q=type%3Auser`)
             .then((countResult) => {

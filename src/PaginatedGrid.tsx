@@ -52,6 +52,7 @@ const PaginatedGrid: React.FC<PaginatedGridProps> = (
         props.updateCurrentPage(props.currentPage);
     }, [props.itemsPerPage]);
 
+    // When clicking on a new number, update global state's current page
     const onChange = (e: ChangeEvent<unknown>, value: number) => {
         props.getUsers(value, props.itemsPerPage);
         props.updateCurrentPage(value);

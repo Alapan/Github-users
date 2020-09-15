@@ -51,6 +51,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 const ItemsPerPageSelector: React.FC<ItemsPerPageSelectorProps> = (
     props: ItemsPerPageSelectorProps
 ) => {
+    // When selecting a new per-page option, update
+    // both current page to 1, and items per page, in the global state
     const handleChange = (event) => {
         props.updateCurrentPage(1);
         props.updateItemsPerPage(event.target.value);

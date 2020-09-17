@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { updateCurrentPage, updateItemsPerPage } from './redux/actions';
+import { updateCurrentPage, updateItemsPerPage } from '../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     };
 };
 
-const ItemsPerPageSelector: React.FC<ItemsPerPageSelectorProps> = (
+const ItemsPerPageSelector = (
     props: ItemsPerPageSelectorProps
 ) => {
     // When selecting a new per-page option, update

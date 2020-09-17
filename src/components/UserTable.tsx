@@ -6,7 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledTableCell, StyledTableRow } from './TableStyles';
+import { StyledTableCell, StyledTableRow } from './StyledTable';
 
 interface User {
     avatar_url: string;
@@ -19,7 +19,7 @@ interface UserTableProps {
     users: User[];
 }
 
-const UserTable: React.FC<UserTableProps> = (props: UserTableProps) => {
+export const UserTable = (props: UserTableProps) => {
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -50,5 +50,3 @@ const UserTable: React.FC<UserTableProps> = (props: UserTableProps) => {
         </TableContainer>
     );
 };
-
-export default UserTable;

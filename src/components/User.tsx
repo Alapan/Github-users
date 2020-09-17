@@ -8,8 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { StyledTableCell, StyledTableRow } from './TableStyles';
-import './User.css';
+import { StyledTableCell, StyledTableRow } from './StyledTable';
+import '../styles/User.css';
 
 interface User {
     avatar_url: string;
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     },
 });
 
-const User = () => {
+export const User = () => {
     const [user, setUser] = useState<User>(initialUserState);
     const classes = useStyles();
 
@@ -98,5 +98,3 @@ const User = () => {
         </div>
     );
 };
-
-export default User;

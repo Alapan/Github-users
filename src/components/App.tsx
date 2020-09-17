@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+import '../styles/App.css';
 import ItemsPerPageSelector from './ItemsPerPageSelector';
-import PaginatedGrid from './PaginatedGrid';
-import UserTable from './UserTable';
+import { HigherPaginatedGrid } from './PaginatedGrid';
+import { UserTable } from './UserTable';
 
 // Application state, stored in Redux store
 interface State {
@@ -17,13 +17,14 @@ interface AppProps {
 }
 
 const mapStateToProps = (state: State) => {
+
     return {
         currentPage: state.currentPage,
         itemsPerPage: state.itemsPerPage,
     };
 };
 
-const App: React.FC<AppProps> = (props: AppProps) => {
+const App = (props: AppProps) => {
     // Component state
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [users, setUsers] = useState([]);
@@ -73,7 +74,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
                 getUsers={getUsers}
                 total={parseInt(numberOfPages.toString(), 10)}
             />
-            <PaginatedGrid
+            <HigherPaginatedGrid
                 getUsers={getUsers}
                 total={parseInt(numberOfPages.toString(), 10)}
             />
@@ -82,4 +83,5 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     );
 };
 
-export default connect(mapStateToProps)(App);
+const connectedApp = connect(mapStateToProps)(App)
+export { connectedApp as HigherOrderApp };

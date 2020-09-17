@@ -3,7 +3,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import React, { ChangeEvent, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { updateCurrentPage } from './redux/actions';
+import { updateCurrentPage } from '../redux/actions';
 
 interface PaginatedGridProps {
     currentPage: number;
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     };
 };
 
-const PaginatedGrid: React.FC<PaginatedGridProps> = (
+const PaginatedGrid = (
     props: PaginatedGridProps
 ) => {
     const classes = useStyles();
@@ -73,4 +73,6 @@ const PaginatedGrid: React.FC<PaginatedGridProps> = (
     );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaginatedGrid);
+const ConnectedPaginatedGrid = connect(mapStateToProps, mapDispatchToProps)(PaginatedGrid)
+
+export { ConnectedPaginatedGrid as HigherPaginatedGrid };

@@ -28,9 +28,6 @@
     "prettier": "prettier --check 'src/*.ts*' 'src/redux/*.ts*'",
     "prettier:fix": "prettier --write 'src/*.ts*' 'src/redux/*.ts*'"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

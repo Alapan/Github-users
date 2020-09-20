@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import '../styles/App.css';
-import ItemsPerPageSelector from './ItemsPerPageSelector';
-import { HigherPaginatedGrid } from './PaginatedGrid';
+//import ItemsPerPageSelector from './ItemsPerPageSelector';
+//import { HigherPaginatedGrid } from './PaginatedGrid';
 import { UserTable } from './UserTable';
+import {Link} from "react-router-dom";
 
 // Application state, stored in Redux store
 interface State {
@@ -17,7 +18,6 @@ interface AppProps {
 }
 
 const mapStateToProps = (state: State) => {
-
     return {
         currentPage: state.currentPage,
         itemsPerPage: state.itemsPerPage,
@@ -26,10 +26,11 @@ const mapStateToProps = (state: State) => {
 
 const App = (props: AppProps) => {
     // Component state
-    const [numberOfPages, setNumberOfPages] = useState(0);
+    //const [numberOfPages, setNumberOfPages] = useState(0);
     const [users, setUsers] = useState([]);
 
     // Calculate total number of pages needed for PaginatedGrid component
+    /*
     const getUsersCount = (perPage: number): void => {
         fetch(`https://api.github.com/search/users?q=type%3Auser`)
             .then((countResult) => {
@@ -47,38 +48,58 @@ const App = (props: AppProps) => {
             });
     };
 
+     */
+
     const getUsers = (
-        since?: number | null,
-        itemsPerPage?: number | null
+        pageIndex?: number | null,
+        pageSize?: number | null
     ): void => {
-        since = since ? since : 1;
-        itemsPerPage = itemsPerPage ? itemsPerPage : 30;
-        getUsersCount(itemsPerPage);
+        pageIndex = pageIndex ? pageIndex : 1;
+        pageSize = pageSize ? pageSize : 30;
+        console.log('PAGE SIZE: ', pageIndex);
+        //getUsersCount(pageSize);
         fetch(
-            `https://api.github.com/users?since=${since}&per_page=${itemsPerPage}`
+            `https://api.github.com/users?since=${pageIndex}&per_page=${pageSize}`
         )
             .then((response) => response.json())
-            .then((data) => setUsers(data))
+            .then((data) => {
+              setUsers(data)})
             .catch((err) => {
                 throw new Error(err);
             });
     };
 
+    const columns = [
+        {
+            Header: "Name",
+            columns: [
+                {
+                    Header: "Avatar",
+                    accessor: "avatar_url",
+                    Cell: props =>
+                        <Link to={`${props.row.original.login}/`}>
+                            <img src={props.row.original.avatar_url} className="avatar" />
+                        </Link>
+                },
+                {
+                    Header: "Login",
+                    accessor: "login",
+                    Cell: props =>
+                        <Link to={`${props.row.original.login}/`}>
+                            {props.row.original.login}
+                        </Link>
+                }
+            ]
+        }
+    ];
+
     useEffect(() => {
-        getUsers(props.currentPage);
+        getUsers();
     }, []);
 
     return (
         <div className="App">
-            <ItemsPerPageSelector
-                getUsers={getUsers}
-                total={parseInt(numberOfPages.toString(), 10)}
-            />
-            <HigherPaginatedGrid
-                getUsers={getUsers}
-                total={parseInt(numberOfPages.toString(), 10)}
-            />
-            <UserTable getUsers={getUsers} users={users} />
+            <UserTable fetchData={getUsers} columns={columns} data={users} />
         </div>
     );
 };

@@ -1,52 +1,86 @@
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { StyledTableCell, StyledTableRow } from './StyledTable';
+import React, { useEffect } from 'react';
+//import { Link } from 'react-router-dom';
+import { useTable, usePagination } from 'react-table';
 
-interface User {
-    avatar_url: string;
-    id: string;
-    login: string;
-}
+export const UserTable = (props) => {
 
-interface UserTableProps {
-    getUsers: (since?: number | null, itemsPerPage?: number | null) => void;
-    users: User[];
-}
+    const { columns, data, fetchData } = props;
+    
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        prepareRow,
+        rows,
+        gotoPage,
+        setPageSize,
+        state: { pageIndex, pageSize },
+    } = useTable(
+      {
+          columns,
+          data,
+          initialState: { pageIndex: 1 }
+      },
+      usePagination
+    );
 
-export const UserTable = (props: UserTableProps) => {
+    console.log('STATE PAGE INDEX: ', pageIndex);
+
+    useEffect(() => {
+      fetchData(pageIndex, pageSize)
+    }, [pageIndex, pageSize])
+
     return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Avatar</StyledTableCell>
-                        <StyledTableCell>Github Username</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {props.users.map((user: User) => (
-                        <StyledTableRow key={user.id}>
-                            <StyledTableCell>
-                                <Link to={`${user.login}/`}>
-                                    <img
-                                        src={user.avatar_url}
-                                        className="avatar"
-                                    />
-                                </Link>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                                <Link to={`${user.login}/`}>{user.login}</Link>
-                            </StyledTableCell>
-                        </StyledTableRow>
+      <div>
+        <div className="pagination">
+          <span>
+            | Go to page:{' '}
+            <input
+              type="number"
+              defaultValue={pageIndex}
+              onChange={e => {
+                const page = e.target.value ? Number(e.target.value) : 1
+                gotoPage(page)
+              }}
+              style={{ width: '100px' }}
+            />
+          </span>{' '}
+          <select
+            value={pageSize}
+            onChange={e => {
+              setPageSize(Number(e.target.value))
+            }}
+          >
+            {[30, 50, 100].map(pageSize => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
+          <table {...getTableProps()}>
+              <thead>
+              {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                      <th {...column.getHeaderProps()}>{column.render("Header")}</th>
                     ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                </tr>
+              ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()}>
+                        {row.cells.map(cell => {
+                            return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                        })}
+                    </tr>
+                  );
+              })}
+              </tbody>
+          </table>
+      </div>
     );
 };

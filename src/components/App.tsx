@@ -30,7 +30,7 @@ const App = (props: AppProps) => {
     const [users, setUsers] = useState([]);
 
     // Calculate total number of pages needed for PaginatedGrid component
-    const getUsersCount = (perPage: number): void => {
+    const getPagesCount = (perPage: number): void => {
         fetch(`https://api.github.com/search/users?q=type%3Auser`)
             .then((countResult) => {
                 countResult
@@ -53,7 +53,9 @@ const App = (props: AppProps) => {
     ): void => {
         since = since ? since : 1;
         itemsPerPage = itemsPerPage ? itemsPerPage : 30;
-        getUsersCount(itemsPerPage);
+        if (itemsPerPage) {
+            getPagesCount(itemsPerPage);
+        }
         fetch(
             `https://api.github.com/users?since=${since}&per_page=${itemsPerPage}`
         )
@@ -65,8 +67,9 @@ const App = (props: AppProps) => {
     };
 
     useEffect(() => {
+        getPagesCount(30);
         getUsers(props.currentPage);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="App">

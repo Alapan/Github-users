@@ -54,7 +54,11 @@ export const User = () => {
     return (
         <div className={classes.root}>
             <div className="avatar-container">
-                <img src={user.avatar_url} className="user-page-avatar" />
+                <img
+                  src={user.avatar_url}
+                  className="user-page-avatar"
+                  alt="User avatar"
+                />
             </div>
             <TableContainer component={Paper}>
                 <Table>

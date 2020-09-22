@@ -5,14 +5,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { updateCurrentPage } from '../redux/actions';
 
-interface PaginatedGridProps {
-    currentPage: number;
-    getUsers: (since?: number | null, itemsPerPage?: number | null) => void;
-    itemsPerPage: number;
-    total: number;
-    updateCurrentPage: (currentPage: number) => void;
-}
-
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -43,32 +35,36 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     };
 };
 
-const PaginatedGrid = (
-    props: PaginatedGridProps
-) => {
+const PaginatedGrid = ({
+    currentPage,
+    getUsers,
+    itemsPerPage,
+    total,
+    updateCurrentPage
+}) => {
     const classes = useStyles();
 
     useEffect(() => {
-        props.updateCurrentPage(props.currentPage);
-    }, [props.itemsPerPage]);
+        updateCurrentPage(currentPage);
+    }, [itemsPerPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // When clicking on a new number, update global state's current page
     const onChange = (e: ChangeEvent<unknown>, value: number) => {
-        props.getUsers(value, props.itemsPerPage);
-        props.updateCurrentPage(value);
+        getUsers(value, itemsPerPage);
+        updateCurrentPage(value);
     };
 
-    if (props.total === 0) {
+    if (total === 0) {
         return null;
     }
 
     return (
         <Pagination
-            count={props.total}
+            count={total}
             onChange={onChange}
             size="large"
             classes={{ root: classes.root, ul: classes.ul }}
-            page={props.currentPage}
+            page={currentPage}
         />
     );
 };

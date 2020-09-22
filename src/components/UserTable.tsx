@@ -37,6 +37,7 @@ export const UserTable = (props: UserTableProps) => {
                                     <img
                                         src={user.avatar_url}
                                         className="avatar"
+                                        alt="User avatar"
                                     />
                                 </Link>
                             </StyledTableCell>

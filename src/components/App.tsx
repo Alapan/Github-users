@@ -26,18 +26,18 @@ const mapStateToProps = (state: State) => {
 
 const App = (props: AppProps) => {
     // Component state
-    //const [numberOfPages, setNumberOfPages] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
     const [users, setUsers] = useState([]);
 
     // Calculate total number of pages needed for PaginatedGrid component
-    /*
+
     const getUsersCount = (perPage: number): void => {
         fetch(`https://api.github.com/search/users?q=type%3Auser`)
             .then((countResult) => {
                 countResult
                     .json()
                     .then((data) => {
-                        setNumberOfPages(Math.ceil(data.total_count / perPage));
+                        setPageCount(Math.ceil(data.total_count / perPage));
                     })
                     .catch((err) => {
                         throw new Error(err);
@@ -48,16 +48,14 @@ const App = (props: AppProps) => {
             });
     };
 
-     */
-
     const getUsers = (
         pageIndex?: number | null,
         pageSize?: number | null
     ): void => {
-        pageIndex = pageIndex ? pageIndex : 1;
+        pageIndex = pageIndex ? pageIndex : 0;
         pageSize = pageSize ? pageSize : 30;
         console.log('PAGE SIZE: ', pageIndex);
-        //getUsersCount(pageSize);
+        getUsersCount(pageSize);
         fetch(
             `https://api.github.com/users?since=${pageIndex}&per_page=${pageSize}`
         )
@@ -99,7 +97,7 @@ const App = (props: AppProps) => {
 
     return (
         <div className="App">
-            <UserTable fetchData={getUsers} columns={columns} data={users} />
+            <UserTable fetchData={getUsers} columns={columns} data={users} pageCount={pageCount} />
         </div>
     );
 };

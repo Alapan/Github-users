@@ -4,7 +4,7 @@ import { useTable, usePagination } from 'react-table';
 
 export const UserTable = (props) => {
 
-    const { columns, data, fetchData } = props;
+    const { columns, data, fetchData, pageCount: controlledPageCount } = props;
     
     const {
         getTableProps,
@@ -19,15 +19,15 @@ export const UserTable = (props) => {
       {
           columns,
           data,
-          initialState: { pageIndex: 1 }
+          initialState: { pageIndex: 1 },
+          manualPagination: true,
+          pageCount: controlledPageCount,
       },
       usePagination
     );
 
-    console.log('STATE PAGE INDEX: ', pageIndex);
-
     useEffect(() => {
-      fetchData(pageIndex, pageSize)
+      fetchData(pageIndex, pageSize);
     }, [pageIndex, pageSize])
 
     return (

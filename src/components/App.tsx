@@ -54,7 +54,6 @@ const App = (props: AppProps) => {
     ): void => {
         pageIndex = pageIndex ? pageIndex : 0;
         pageSize = pageSize ? pageSize : 30;
-        console.log('PAGE SIZE: ', pageIndex);
         getUsersCount(pageSize);
         fetch(
             `https://api.github.com/users?since=${pageIndex}&per_page=${pageSize}`
